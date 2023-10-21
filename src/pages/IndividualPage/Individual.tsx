@@ -1,31 +1,24 @@
-import React, { useCallback, useState,useRef }  from 'react';
+import React, { useState,useRef }  from 'react';
 import { Link } from 'react-router-dom';
 import { ROUTES_PATH } from '@Constants/routes';
-import PhotoUpload from './PhotoUpload';
+// import PhotoUpload from './PhotoUpload';
 import styled from 'styled-components';
 import image from './image.jpeg';
 
 const Individual = () => {
-  const UseImageUpload = () => {
-    const [file, setFile] = useState<FileList | null>(null);
-    const [imgURL, setImgURL] = useState("");
-  
-    const selectImg = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        setFile(e.target.files);
-  
-        const newImgURL = URL.createObjectURL(e.target.files[0]);
-        setImgURL(newImgURL);
-      }
-    }, []);
-  
-    return { file, imgURL, selectImg  };
-  };
-  
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [file, setFile] = useState<FileList | null>();
+  const [imgURL, setimgURL] = useState("");
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
 
-  const { file, imgURL, selectImg } = UseImageUpload();
+  const SelectImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFile(e.target.files);
+
+      const newimgURL = URL.createObjectURL(e.target.files[0]);
+      setimgURL(newimgURL);
+    }
+  };
 
   return (
     <AppContainer>
@@ -39,12 +32,12 @@ const Individual = () => {
         </Header>
         <StyledDiv>
           {imgURL === "" ?
-            <StyledAlert>
-              <Stlyedinfo>사진이 없어요ㅠ</Stlyedinfo>
-              <StyledImg src={image} alt="You don't have photo!"/>
-            </StyledAlert>
-          :
-          <StyledImg src={imgURL} alt="Upload Photo"/>
+          <StyledAlert>
+            <Stlyedinfo>사진이 없어요ㅠ</Stlyedinfo>
+            <StyledImg src={image} alt="You don't have photo!"/>
+          </StyledAlert>
+        :
+        <StyledImg src={imgURL} alt="업로드한 사진"/>
         }
         </StyledDiv>
       </BodyContainer>
@@ -54,7 +47,7 @@ const Individual = () => {
         accept="image/*"
         required
         ref = {imgUploadInput}
-        onChange = {selectImg} />
+        onChange = {SelectImg} />
 
       <AddButton type="button" onClick={(e) => {
           e.preventDefault();
