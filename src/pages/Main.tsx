@@ -3,6 +3,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 interface Album {
   id: number;
@@ -12,35 +18,47 @@ interface Album {
 }
 
 const Main = () => {
-  const [userAlbum, setUserAlbum] = useState<Album>();
+  const [userAlbums, setUserAlbums] = useState<Album[]>([]);
 
   useEffect(() => {
     axios
       .get('https://port-0-cutalbum-back-jvpb2alnz8cuvj.sel5.cloudtype.app/user/albums')
       .then((response) => {
-        setUserAlbum(response.data.data[0]);
+        setUserAlbums(response.data.data);
       })
       .catch((error) => {
         console.error('Error', error);
       });
   }, []);
 
-  // console.log(userAlbum);
+  console.log(userAlbums);
 
   return (
     <>
       <MainLayout>
-        {userAlbum && (
-          <AlbumList>
-            <AlbumTitle>{userAlbum.title}</AlbumTitle>
-            <AlbumSubtitle>{userAlbum.subTitle}</AlbumSubtitle>
-            <Link to={ROUTES_PATH.login}>
-              <Album key={userAlbum.id}>
-                <AlbumImage src={userAlbum.imageUrl} alt="앨범 이미지" />
-              </Album>
-            </Link>
-          </AlbumList>
-        )}
+        <Swiper modules={[Navigation, Pagination]} spaceBetween={80} slidesPerView={1.5} centeredSlides={true}>
+          {userAlbums.length > 0 ? (
+            userAlbums.map((userAlbum) => (
+              <SwiperSlide key={userAlbum.id}>
+                <Album>
+                  <AlbumTitle>{userAlbum.title}</AlbumTitle>
+                  <AlbumSubtitle>{userAlbum.subTitle}</AlbumSubtitle>
+                  <Link to={ROUTES_PATH.login}>
+                    <AlbumBackground>
+                      <AlbumImage src={userAlbum.imageUrl} alt="앨범 이미지" />
+                    </AlbumBackground>
+                  </Link>
+                </Album>
+              </SwiperSlide>
+            ))
+          ) : (
+            <>
+              <AlbumTitle>앨범을 만들어주세요!</AlbumTitle>
+              <AlbumSubtitle>4CUT</AlbumSubtitle>
+              <EmptyAlbumScreen />
+            </>
+          )}
+        </Swiper>
         <Link to={ROUTES_PATH.login}>
           <AlbumAddButton>
             <p>+</p>
@@ -61,7 +79,13 @@ export const MainLayout = styled.div`
   position: relative;
 `;
 
+export const Album = styled.div`
+  margin: auto;
+  position: relative;
+`;
+
 export const AlbumTitle = styled.div`
+  margin-top: 300px;
   font-size: 57px;
   font-weight: 700;
   line-height: 68px;
@@ -78,24 +102,23 @@ export const AlbumSubtitle = styled.div`
   color: #999999;
 `;
 
-export const AlbumList = styled.div`
-  margin-top: 300px;
-`;
-
-export const Album = styled.div`
-  width: 510px;
+export const AlbumBackground = styled.div`
+  width: 500px;
   height: 602px;
   background-color: #d2d2d2;
-  margin: auto;
-  padding: 20px;
-  margin-top: 100px;
+  margin: 100px auto;
+  padding: 10px;
   border: 2.05px solid #d2d2d2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0px 26.624000549316406px 49.152000427246094px 14.336000442504883px #00000012;
 `;
 
 export const AlbumImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const AlbumAddButton = styled.button`
@@ -118,4 +141,17 @@ export const AlbumAddButton = styled.button`
     color: #666666;
     font-size: 100px;
   }
+`;
+
+const EmptyAlbumScreen = styled.div`
+  width: 500px;
+  height: 602px;
+  background-color: #d2d2d2;
+  margin: 100px auto;
+  padding: 10px;
+  border: 2.05px solid #d2d2d2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 26.624000549316406px 49.152000427246094px 14.336000442504883px #00000012;
 `;
