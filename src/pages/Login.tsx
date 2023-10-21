@@ -6,14 +6,12 @@ const Login = () => {
   return (
     <>
       <LoginLayout>
-        <Logo>LOGO</Logo>
+        <Logo>4CUS</Logo>
         <InfoText>설명글</InfoText>
         <BackgroundImage></BackgroundImage>
 
         <Link to={ROUTES_PATH.main}>
-          <StartBtn>
-            <p>시작하기</p>
-          </StartBtn>
+          <StartBtn>시작하기</StartBtn>
         </Link>
       </LoginLayout>
     </>
@@ -24,9 +22,10 @@ export default Login;
 
 export const LoginLayout = styled.div`
   width: 768px;
-  border: solid 1px black;
   height: 1662px;
+  border: solid 1px black;
   margin: auto;
+  position: relative;
 `;
 
 export const Logo = styled.div`
@@ -55,15 +54,15 @@ export const StartBtn = styled.button`
   background: #dadada;
   width: 684px;
   height: 107px;
+  font-size: 41px;
+  font-weight: 600;
+  line-height: 49px;
+  letter-spacing: 0em;
   position: absolute;
-  bottom: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 200px;
   left: 50%;
-  transform: translateX(-50%); /* 가로로 가운데 정렬 */
-
-  & p {
-    font-size: 41px;
-    font-weight: 600;
-    line-height: 49px;
-    letter-spacing: 0em;
-  }
+  transform: translateX(-50%);
 `;
