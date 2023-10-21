@@ -11,7 +11,9 @@ const Login = () => {
         <BackgroundImage></BackgroundImage>
 
         <StartBtn>
-          <Link to={ROUTES_PATH.login}>시작하기</Link>
+          <Link to={ROUTES_PATH.login}>
+            <p>시작하기</p>
+          </Link>
         </StartBtn>
       </LoginLayout>
     </>
@@ -23,7 +25,7 @@ export default Login;
 export const LoginLayout = styled.div`
   width: 768px;
   border: solid 1px black;
-  height: 100vh;
+  height: 1662px;
   margin: auto;
 `;
 
@@ -32,21 +34,36 @@ export const Logo = styled.div`
   font-weight: 700;
   line-height: 173px;
   letter-spacing: 0em;
-  text-align: left;
   margin: auto;
+  margin-top: 300px;
   text-align: center;
 `;
 
-export const InfoText = styled.div`
+export const InfoText = styled.p`
+  width: 200px;
+  text-align: center;
   font-size: 41px;
   font-weight: 400;
   line-height: 50px;
   letter-spacing: 0em;
-  text-align: left;
+  margin: auto;
 `;
 
 export const BackgroundImage = styled.div``;
 
-export const StartBtn = styled.div`
+export const StartBtn = styled.button`
   background: #dadada;
+  width: 684px;
+  height: 107px;
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%); /* 가로로 가운데 정렬 */
+
+  & p {
+    font-size: 41px;
+    font-weight: 600;
+    line-height: 49px;
+    letter-spacing: 0em;
+  }
 `;
