@@ -7,6 +7,7 @@ import { ROUTES_PATH } from '@Constants/routes';
 
 const Home = lazy(() => import('@Pages/Home'));
 const Hello = lazy(() => import('@Pages/Hello'));
+const Login = lazy(() => import('@Pages/Login'));
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES_PATH.hello,
         element: <Hello />,
+      },
+      {
+        path: ROUTES_PATH.login,
+        element: <Login />,
       },
     ],
   },
