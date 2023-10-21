@@ -10,11 +10,11 @@ const Login = () => {
         <InfoText>설명글</InfoText>
         <BackgroundImage></BackgroundImage>
 
-        <StartBtn>
-          <Link to={ROUTES_PATH.login}>
+        <Link to={ROUTES_PATH.main}>
+          <StartBtn>
             <p>시작하기</p>
-          </Link>
-        </StartBtn>
+          </StartBtn>
+        </Link>
       </LoginLayout>
     </>
   );
