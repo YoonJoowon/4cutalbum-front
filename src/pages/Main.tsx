@@ -32,7 +32,7 @@ const Main = () => {
   }, []);
 
   // console.log(userAlbums);
-  const [isFlipped, setIsFlipped] = useState(false);
+  
   return (
     <>
       <MainLayout>

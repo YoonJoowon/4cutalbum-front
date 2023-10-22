@@ -9,6 +9,7 @@ const Home = lazy(() => import('@Pages/Home'));
 const Hello = lazy(() => import('@Pages/Hello'));
 const Login = lazy(() => import('@Pages/Login'));
 const Main = lazy(() => import('@Pages/Main'));
+const Create = lazy(() => import('@Pages/Create'));
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES_PATH.main,
         element: <Main />,
+      },
+      {
+        path: ROUTES_PATH.create,
+        element: <Create />,
       },
     ],
   },
