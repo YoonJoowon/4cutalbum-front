@@ -61,7 +61,7 @@ const S = {
     position: absolute;
 
     right: 1.25rem;
-    top: calc(50% - 10px);
+    top: calc(50% - 20px);
 
     @media screen and (max-width: 768px) {
       right: 1.25rem;
