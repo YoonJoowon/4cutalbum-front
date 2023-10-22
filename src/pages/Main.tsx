@@ -129,6 +129,7 @@ export const AlbumSubtitle = styled.div`
   color: #999999;
 `;
 
+// hover animation
 const pulseAnimation = keyframes`
   0% {
     transform: scale(1);

@@ -1,6 +1,6 @@
 import { ROUTES_PATH } from '@Constants/routes';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 const Login = () => {
   return (
@@ -47,7 +47,20 @@ export const InfoText = styled.p`
 
 export const BackgroundImage = styled.div``;
 
-export const StartBtn = styled.button`
+// hover animation
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+export const StartBtn = styled.div`
   border-radius: 8px;
   background: var(--Primary, #d9d9d9);
   width: 333px;
@@ -58,10 +71,14 @@ export const StartBtn = styled.button`
   justify-content: center;
   align-items: center;
   bottom: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-
+  left: 5%;
   color: var(--grayscales-gray-1-c, #1c1c1c);
   font-size: 20px;
   font-weight: 600;
+  transition: transform 1s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    animation: ${pulseAnimation} 1s ease infinite;
+  }
 `;
