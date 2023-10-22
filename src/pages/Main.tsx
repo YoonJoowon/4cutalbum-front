@@ -2,15 +2,13 @@ import { ROUTES_PATH } from '@Constants/routes';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import SwiperCore, { Navigation, Pagination } from 'swiper/modules';
+import styled, { keyframes, css } from 'styled-components';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
-// SwiperCore.use([Navigation, Pagination]);
 
 interface Album {
   id: number;
@@ -34,7 +32,7 @@ const Main = () => {
   }, []);
 
   // console.log(userAlbums);
-
+  const [isFlipped, setIsFlipped] = useState(false);
   return (
     <>
       <MainLayout>
@@ -94,6 +92,19 @@ export const MainLayout = styled.div`
     color: #1c1c1c80;
     margin-top: 100px;
   }
+
+  .swiper-pagination {
+    color: var(--grayscales-gray-66, #666);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+
+    .swiper-pagination-bullets.swiper-pagination-horizontal {
+      margin: auto;
+      width: 59px;
+    }
+  }
 `;
 
 export const Album = styled.div`
@@ -118,6 +129,18 @@ export const AlbumSubtitle = styled.div`
   color: #999999;
 `;
 
+const pulseAnimation = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 export const AlbumBackground = styled.div`
   width: 250px;
   height: 301px;
@@ -130,9 +153,15 @@ export const AlbumBackground = styled.div`
   align-items: center;
   box-shadow: 0px 13.312px 24.576px 7.168px #00000012;
   border-radius: 5%;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    animation: ${pulseAnimation} 1s ease infinite;
+  }
 `;
 
-export const AlbumImage = styled.img`
+const AlbumImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -153,10 +182,19 @@ export const AlbumAddButton = styled.button`
   left: 80%;
   transform: translateX(-50%);
   box-shadow: 0px 4px 11px 4px #9e9e9e40;
+  transition: background-color 0.2s ease;
 
   & p {
     color: #666666;
     font-size: 50px;
+  }
+
+  &:hover {
+    background-color: #bbb;
+
+    p {
+      color: white;
+    }
   }
 `;
 
