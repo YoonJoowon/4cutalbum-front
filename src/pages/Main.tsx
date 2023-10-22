@@ -12,7 +12,6 @@ import Fourth from '../assets/icons/albumCover/Fourth.png';
 import Fifth from '../assets/icons/albumCover/Fifth.png';
 import setting from '../image/setting.png';
 import correction from '../image/correction.png';
-import Dummy from '../image/Album dummy.png';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -82,7 +81,7 @@ const Main = () => {
                               ? Third
                               : userAlbum.coverIndex === 3
                               ? Fourth
-                              : userAlbum.coverIndex === 3
+                              : userAlbum.coverIndex === 4
                               ? Fifth
                               : userAlbum.imageUrl
                           }
@@ -121,7 +120,6 @@ export const Wrapper = styled.div`
 `;
 
 export const MainLayout = styled.div`
-  /* width: 375px; */
   height: 100vh;
   margin: auto;
   position: relative;

@@ -25,14 +25,14 @@ export const Wrapper = styled.div`
 `;
 
 export const LoginLayout = styled.div`
-  width: 375px;
   height: 100vh;
   margin: auto;
   position: relative;
-  max-width: 768px;
   background-color: white;
+  max-width: 768px;
+  padding-top: 44px;
   background-image: url(${loginBackground});
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 
@@ -69,17 +69,15 @@ export const StartBtn = styled.div`
   background: var(--Primary, #d9d9d9);
   width: 333px;
   padding: 14px 12px;
-  gap: 10px;
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 70px;
-  left: 5%;
   color: var(--grayscales-gray-1-c, #1c1c1c);
   font-size: 20px;
   font-weight: 600;
   transition: transform 1s ease-in-out;
+  margin: auto;
+  margin-top: 400px;
   cursor: pointer;
 
   &:hover {
