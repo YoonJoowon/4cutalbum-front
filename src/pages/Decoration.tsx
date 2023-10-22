@@ -166,11 +166,8 @@ const StyledSelectedSticker = styled.div<{ editMode: boolean }>`
 
 const RemoveButton = styled.button`
   position: absolute;
-  right: -10px;
-  top: -10px;
-  border-radius: 99px;
-  background-color: #ff611e;
-  color: white;
+  right: -8px;
+  top: -22px;
   width: 25px;
   height: 25px;
   cursor: pointer;
