@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import dummy from '../image/Album dummy.png';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -15,6 +16,7 @@ interface Album {
   title: string;
   subTitle: string;
   imageUrl: string;
+  coverIndex: number;
 }
 
 const Main = () => {
@@ -31,8 +33,8 @@ const Main = () => {
       });
   }, []);
 
-  // console.log(userAlbums);
-  
+  console.log(userAlbums);
+
   return (
     <>
       <MainLayout>
@@ -54,7 +56,7 @@ const Main = () => {
                   <AlbumSubtitle>{userAlbum.subTitle}</AlbumSubtitle>
                   <AlbumBackground>
                     <Link to={ROUTES_PATH.login}>
-                      <AlbumImage src={userAlbum.imageUrl} alt="앨범 이미지" />
+                      <AlbumImage src={userAlbum.coverIndex === 0 ? dummy : userAlbum.imageUrl} alt="앨범 이미지" />
                     </Link>
                   </AlbumBackground>
                 </Album>
@@ -145,7 +147,6 @@ const pulseAnimation = keyframes`
 export const AlbumBackground = styled.div`
   width: 250px;
   height: 301px;
-  background-color: #d2d2d2;
   margin: 40px auto;
   padding: 10px;
   border: 2.05px solid #d2d2d2;
