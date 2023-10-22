@@ -21,43 +21,38 @@ const Login = () => {
 export default Login;
 
 export const LoginLayout = styled.div`
-  width: 768px;
-  height: 1662px;
+  width: 375px;
+  height: 100vh;
   border: solid 1px black;
   margin: auto;
   position: relative;
+  background: #f1f1f1;
 `;
 
 export const Logo = styled.div`
-  font-size: 143px;
+  font-size: 70px;
   font-weight: 700;
-  line-height: 173px;
-  letter-spacing: 0em;
   margin: auto;
-  margin-top: 300px;
+  margin-top: 87px;
   text-align: center;
 `;
 
 export const InfoText = styled.p`
   width: 200px;
   text-align: center;
-  font-size: 41px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 50px;
-  letter-spacing: 0em;
   margin: auto;
 `;
 
 export const BackgroundImage = styled.div``;
 
 export const StartBtn = styled.button`
-  background: #dadada;
-  width: 684px;
-  height: 107px;
-  font-size: 41px;
-  font-weight: 600;
-  line-height: 49px;
-  letter-spacing: 0em;
+  border-radius: 8px;
+  background: var(--Primary, #d9d9d9);
+  width: 333px;
+  padding: 14px 12px;
+  gap: 10px;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -65,4 +60,8 @@ export const StartBtn = styled.button`
   bottom: 200px;
   left: 50%;
   transform: translateX(-50%);
+
+  color: var(--grayscales-gray-1-c, #1c1c1c);
+  font-size: 20px;
+  font-weight: 600;
 `;
