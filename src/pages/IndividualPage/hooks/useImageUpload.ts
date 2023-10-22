@@ -5,6 +5,7 @@ import axios from 'axios';
 const useImageUpload = () => {
   const [file, setFile] = useState<FileList | null>(null);
   const [imgURL, setImgURL] = useState<string>(sampleImg);
+  const [isImgUpload, setIsImgUpload] = useState<boolean>(false);
 
   const selectImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -16,6 +17,7 @@ const useImageUpload = () => {
           setImgURL(reader.result);
         }
       };
+      setIsImgUpload(true);
     }
   };
 
@@ -34,7 +36,7 @@ const useImageUpload = () => {
       });
   };
 
-  return { file, imgURL, selectImg, onSubmit };
+  return { file, imgURL, selectImg, onSubmit, isImgUpload };
 };
 
 export default useImageUpload;

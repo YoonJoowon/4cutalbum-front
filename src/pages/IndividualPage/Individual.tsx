@@ -5,12 +5,14 @@ import useImageUpload from '@Pages/IndividualPage/hooks/useImageUpload';
 import People from '@Assets/icons/People';
 import color from '@Styles/color';
 import Down from '@Assets/icons/Down';
-import sampleImg from './image.jpeg';
+import PreArrow from '@Assets/icons/PreArrow';
+// import sampleImg from './image.jpeg';
 
 const Individual = () => {
-  const { file, imgURL, selectImg, onSubmit } = useImageUpload();
-  const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const { file, imgURL, selectImg, onSubmit, isImgUpload } = useImageUpload();
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
+  const [push, setPush] = useState<number>(0);
+  const [isUploaded, setIsUploaded] = useState(true);
 
   const handleImgClick = () => {
     imgUploadInput.current?.click();
@@ -18,12 +20,29 @@ const Individual = () => {
 
   return (
     <Layout>
+      <None />
+
       <Header>
-        <People color={color.gray[700]} />
-        <Down color={color.gray[700]} />
+        <LeftBtn>
+          <PreArrow color={color.gray[700]} />
+        </LeftBtn>
+
+        <RightBtn>
+          {isImgUpload ? (
+            <>
+              <DownIcon isUploaded color={color.gray[700]} />
+              <People color={color.gray[700]} />
+            </>
+            ) : (
+            <>
+              <DownIcon color={color.gray[400]} />
+              <People color={color.gray[700]} />
+            </>
+          )}
+        </RightBtn>
       </Header>
+
       <Content>
-        {/* 사진이 아무것도 없을때 */}
         <input
           type="file"
           accept="image/*"
@@ -32,10 +51,28 @@ const Individual = () => {
           onChange={selectImg}
           style={{ display: 'none' }}
         />
-        {/* 기본이미지일 때는 마우스호버하면 손모양, 이미지가 있으면 그냥 마우스 */}
-        <img src={imgURL} onClick={handleImgClick} />
+
+        {isImgUpload ? (
+          <SampleImg src={imgURL} />
+            ) : (
+          <Info>사진을 추가해주세요</Info>
+          )}
       </Content>
-      <Button onClick={onSubmit}>사진 올리기</Button>
+
+      <PlusLikeBtn>
+        {isImgUpload && (
+          <Heart onClick={() => {setPush(push + 1)}}>
+            <TouchIcon>🩷{push}</TouchIcon>
+          </Heart>
+        )}
+      </PlusLikeBtn>
+
+      <BtnWrap>
+        <Button onClick={isImgUpload ? onSubmit : handleImgClick}>
+          {isImgUpload ? '꾸미기' : '사진 업로드'}
+        </Button>
+      </BtnWrap>
+      
     </Layout>
   );
 };
@@ -44,185 +81,136 @@ const Layout = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  background-color: #F6F6F6;
 `;
 
 const Header = styled.div`
-  width: 100%;
-  height: 106px;
-  background-color: aqua;
+  width: 375px;
+  max-width: 768px;
+  height: 52px;
+  background-color: white;
+  display: flex;  
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const None = styled.div`
+  width: 375px;
+  height: 44px;
+  background-color: white;
+`;
+
+const LeftBtn = styled.div`
+  display: flex;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const DownIcon = styled(Down)<{ isUploaded?: boolean }>`
+  color: ${props => (props.isUploaded ? color.gray[700] : color.gray[400])};
+
+  &:hover {
+    cursor: ${props => (props.isUploaded ? 'pointer' : 'default')};
+    color: ${props => (props.isUploaded ? color.gray[600] : color.gray[400])};
+  }
+`;
+
+const RightBtn = styled.div`
+  display: flex;  
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 80px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  ${DownIcon}:hover {
+    cursor: default;
+  }
 `;
 
 const Content = styled.div`
-  width: 100%;
-  //height: 80%;
-  background-color: black;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 107px;
-  padding: 20px 0;
-  background-color: ${color.primary};
-`;
-
-const Img = styled.img`
-  &:hover {
-  }
-`;
-
-// <AppContainer>
-//   <BodyContainer>
-//     <Header>
-//       <BackLink to={ROUTES_PATH.home}>뒤로</BackLink>
-//       <RightLink>
-//         <StyledLink to={ROUTES_PATH.home}>초대</StyledLink>
-//         <StyledLink to={ROUTES_PATH.home}>저장</StyledLink>
-//       </RightLink>
-//     </Header>
-//     <StyledDiv>
-//       {imgURL === '' ? (
-//         <StyledAlert>
-//           <Stlyedinfo>사진이 없어요ㅠ</Stlyedinfo>
-//           <StyledImg src={image} alt="You don't have photo!" />
-//         </StyledAlert>
-//       ) : (
-//         <StyledImg src={imgURL} alt="Upload Photo" />
-//       )}
-//     </StyledDiv>
-//   </BodyContainer>
-//
-//   <ImgInput type="file" accept="image/*" required ref={imgUploadInput} onChange={selectImg} />
-//
-//   <AddButton
-//     type="button"
-//     onClick={(e) => {
-//       e.preventDefault();
-//       if (imgUploadInput.current) {
-//         imgUploadInput.current.click();
-//       }
-//     }}
-//   >
-//     {' '}
-//     이미지 변경 버튼{' '}
-//   </AddButton>
-//
-//   <ButtonContainer></ButtonContainer>
-// </AppContainer>
-
-// styled-components
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-`;
-
-const BodyContainer = styled.div`
   width: 375px;
-  height: 650px;
+  height: 450px;
+  background-color: #F6F6F6;
+`;
+
+const Info = styled.div`
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 `;
 
-// Header
-// const Header = styled.div`
-//   width: 375px;
-//   height: 52px;
-//   display: flex;
-//   justify-content: space-between;
-//   margin-bottom: auto;
-//   border: 2px solid black;
-//   border-bottom: none;
-//   align-items: center;
-// `;
-
-// Header Button
-const BackLink = styled(Link)`
-  width: 64px;
-  height: 19px;
-  padding: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
+const SampleImg = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 5px;
-
-  &:hover {
-    background-color: orange;
-  }
+  height: 100%;
+  margin: 0px auto;
 `;
 
-const RightLink = styled.div`
-  display: flex;
+const PlusLikeBtn = styled.div`
+  width: 375px;
+  height: 56px;
+  background-color: white;
+  position: relative;
+  display: flex;     
+  justify-content: flex-end;  
   align-items: center;
 `;
 
-const StyledLink = styled(Link)`
-  width: 64px;
-  height: 19px;
-  padding: 10px;
-  border: 2px solid black;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const Heart = styled.div`
+  width: 85px;
+  height: 35px;
+  border-radius:20px;
+  border: 1px solid black;
   margin-right: 5px;
 
   &:hover {
-    background-color: yellow;
+    background-color: #cf8080;
+    cursor: pointer;
   }
 `;
 
-// Body
-const StyledDiv = styled.div`
+const TouchIcon = styled.div`
+  font-size: 18px;
+  margin-left: 7px;
+  margin-top: 2px;
+`;
+
+const BtnWrap = styled.div`
   width: 375px;
-  height: 650px;
-  border: 2px solid black;
-  postition: absolute;
-`;
-
-const StyledAlert = styled.div`
-  height: 100%;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-`;
-
-const Stlyedinfo = styled.div`
-  font-size: 25px;
-  font-weight: semi-bold;
-  margin: 5px;
-`;
-
-const StyledImg = styled.img`
-  width: 200px;
-  height: 130px;
-`;
-
-const ButtonContainer = styled.div`
+  height: 126px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
 `;
 
-const AddButton = styled.button`
+const Button = styled.button`
   width: 333px;
   height: 52px;
+  background-color: ${color.primary};
   font-size: 20px;
-  background-color: lightgray;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+`;
+
+const ImgUpload = styled.img`
+  width: 80%;
 `;
 
 const ImgInput = styled.input`
