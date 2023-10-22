@@ -1,92 +1,71 @@
-import {
-  ChangeEventHandler,
-  Children,
-  cloneElement,
-  ForwardedRef,
-  forwardRef,
-  HTMLAttributes,
-  InputHTMLAttributes,
-  MutableRefObject,
-  PropsWithChildren,
-  ReactElement,
-  ReactNode,
-  useState,
-} from 'react';
-import styled, { CSSProp } from 'styled-components';
 import DeleteIcon from '@Assets/icons/DeleteIcon';
+import styled from 'styled-components';
 
-type Props = {
-  label?: ReactNode;
+interface InputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  resetValue: () => void;
   placeholder?: string;
-  error?: boolean;
-  children: ReactElement;
-};
+  label?: string;
+  $hasError?: boolean;
+  onFocus?: () => void;
+}
 
-const Input = ({ label, placeholder, children, error }: PropsWithChildren<Props> & HTMLAttributes<HTMLDivElement>) => {
-  const child = Children.only<ReactElement<{ error?: boolean; id?: string }>>(children);
-  const id = '1';
-  const removeValue = () => {
-    // setValue('');
-  };
+const checkIsNull = (text: string) => text.trim() !== '';
 
+const Input = ({ value, onChange, resetValue, placeholder, label, $hasError, onFocus }: InputProps) => {
   return (
-    <Layout>
-      <StyledLabel>{label}</StyledLabel>
-      <InputWrapper>
-        {cloneElement(child, { id, ...child.props })}
-        {error && (
-          <DeleteButtonWrapper onClick={removeValue}>
+    <div>
+      {label && <S.Label>{label}</S.Label>}
+      <S.InputContainer>
+        <S.Input value={value} onChange={onChange} onFocus={onFocus} placeholder={placeholder} $hasError={$hasError} />
+        {checkIsNull(value) && !$hasError && (
+          <S.DeleteButton onClick={resetValue}>
             <DeleteIcon color="#666666" width="20" height="20" />
-          </DeleteButtonWrapper>
+          </S.DeleteButton>
         )}
-      </InputWrapper>
-    </Layout>
+      </S.InputContainer>
+    </div>
   );
 };
 
 export default Input;
 
-const Layout = styled.div``;
+const S = {
+  Container: styled.div``,
 
-const StyledLabel = styled.label``;
+  Label: styled.label`
+    display: block;
+    font-size: 2.5625rem;
+    font-weight: 600;
+    margin-bottom: 1.02rem;
+  `,
+  InputContainer: styled.div`
+    position: relative;
+  `,
+  Input: styled.input<{ $hasError?: boolean }>`
+    width: 100%;
+    border: none;
+    height: 96px;
+    background-color: #f7f7f7;
+    padding-left: 1.54rem;
+    color: ${(props) => (props.$hasError ? 'red' : 'black')};
+    border-bottom: ${(props) => (props.$hasError ? '2px solid red' : 'none')};
 
-type TextFieldProps = {
-  error?: boolean;
-  $style?: CSSProp;
-} & InputHTMLAttributes<HTMLInputElement>;
+    @media screen and (max-width: 768px) {
+      height: 48px;
+    }
+  `,
+  DeleteButton: styled.button`
+    cursor: pointer;
+    position: absolute;
 
-Input.TextField = forwardRef(({ error, $style, ...props }: TextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {
-  return <StyledInput ref={ref} {...props} />;
-});
-Input.TextField.displayName = 'TextField';
+    right: 1.25rem;
+    top: calc(50% - 10px);
 
-const InputWrapper = styled.div`
-  position: relative;
-`;
-
-type StyledInputProps = Pick<TextFieldProps, 'error'>;
-
-const StyledInput = styled.input<StyledInputProps>`
-  width: 100%;
-  border: none;
-  height: 96px;
-  background-color: #f7f7f7;
-  color: ${(props) => (props.error ? 'red' : 'black')};
-  border-bottom: ${(props) => (props.error ? '2px solid red' : 'none')};
-
-  @media screen and (max-width: 768px) {
-    height: 48px;
-  }
-`;
-
-const DeleteButtonWrapper = styled.button`
-  cursor: pointer;
-  position: absolute;
-
-  right: 1.25rem; // 오른쪽 패딩
-  top: calc(50% - 10px);
-  @media screen and (max-width: 768px) {
-    right: 1.25rem; // 오른쪽 패딩
-    transform: translateY(70%);
-  }
-`;
+    @media screen and (max-width: 768px) {
+      right: 1.25rem;
+      transform: translateY(5%);
+    }
+  `,
+};

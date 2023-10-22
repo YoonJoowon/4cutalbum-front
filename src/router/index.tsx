@@ -7,7 +7,7 @@ import { ROUTES_PATH } from '@Constants/routes';
 
 const Home = lazy(() => import('@Pages/Home'));
 const Hello = lazy(() => import('@Pages/Hello'));
-const Create = lazy(() => import('@Pages/Create/Create'));
+const Create = lazy(() => import('@Pages/Create'));
 
 const router = createBrowserRouter([
   {
