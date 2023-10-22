@@ -6,13 +6,13 @@ import People from '@Assets/icons/People';
 import color from '@Styles/color';
 import Down from '@Assets/icons/Down';
 import PreArrow from '@Assets/icons/PreArrow';
-// import sampleImg from './image.jpeg';
+import sampleImg from './image.png';
 
 const Individual = () => {
-  const { file, imgURL, selectImg, onSubmit, isImgUpload } = useImageUpload();
+  const { file, imgURL, selectImg, onSubmit, isImgUpload, stickerPhoto } = useImageUpload()
   const imgUploadInput = useRef<HTMLInputElement | null>(null);
-  const [push, setPush] = useState<number>(0);
   const [isUploaded, setIsUploaded] = useState(true);
+  const [isImgonSubmit, setIsImgonSubmit] = useState(false);
 
   const handleImgClick = () => {
     imgUploadInput.current?.click();
@@ -23,9 +23,11 @@ const Individual = () => {
       <None />
 
       <Header>
-        <LeftBtn>
-          <PreArrow color={color.gray[700]} />
-        </LeftBtn>
+        <Link to="hello" onClick={() => console.log('뒤로가기!')}>
+          <LeftBtn>
+            <PreArrow color={color.gray[700]}></PreArrow>
+          </LeftBtn>
+        </Link>
 
         <RightBtn>
           {isImgUpload ? (
@@ -43,7 +45,7 @@ const Individual = () => {
       </Header>
 
       <Content>
-        <input
+      <input
           type="file"
           accept="image/*"
           required
@@ -52,27 +54,27 @@ const Individual = () => {
           style={{ display: 'none' }}
         />
 
-        {isImgUpload ? (
-          <SampleImg src={imgURL} />
-            ) : (
-          <Info>사진을 추가해주세요</Info>
-          )}
+        {isImgUpload ? (<SampleImg src={imgURL} />) : (<SampleImg src={imgURL} />)}       
+          
       </Content>
 
-      <PlusLikeBtn>
-        {isImgUpload && (
-          <Heart onClick={() => {setPush(push + 1)}}>
-            <TouchIcon>🩷{push}</TouchIcon>
-          </Heart>
-        )}
-      </PlusLikeBtn>
-
-      <BtnWrap>
-        <Button onClick={isImgUpload ? onSubmit : handleImgClick}>
-          {isImgUpload ? '꾸미기' : '사진 업로드'}
-        </Button>
-      </BtnWrap>
+      <PlusLikeBtn></PlusLikeBtn>
       
+      <BtnWrap>
+        {isImgUpload ? (
+          <>
+            <Button onClick={onSubmit}>업로드</Button>
+            <Button>
+              <Link to="/" onClick={() => console.log('꾸미기!')}>
+                꾸미기
+              </Link>
+            </Button>
+          </>
+        ) : (
+          <Button onClick={handleImgClick}>사진 선택</Button>
+        )}
+      </BtnWrap>
+    
     </Layout>
   );
 };
@@ -174,25 +176,6 @@ const PlusLikeBtn = styled.div`
   align-items: center;
 `;
 
-const Heart = styled.div`
-  width: 85px;
-  height: 35px;
-  border-radius:20px;
-  border: 1px solid black;
-  margin-right: 5px;
-
-  &:hover {
-    background-color: #cf8080;
-    cursor: pointer;
-  }
-`;
-
-const TouchIcon = styled.div`
-  font-size: 18px;
-  margin-left: 7px;
-  margin-top: 2px;
-`;
-
 const BtnWrap = styled.div`
   width: 375px;
   height: 126px;
@@ -205,6 +188,7 @@ const BtnWrap = styled.div`
 const Button = styled.button`
   width: 333px;
   height: 52px;
+  color: ${color.btn};
   background-color: ${color.primary};
   font-size: 20px;
 `;

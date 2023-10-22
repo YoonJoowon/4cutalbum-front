@@ -5,7 +5,8 @@ const color = {
   brand: {
     kakao: '#ffe812',
   },
-  primary: '#D9D9D9',
+  primary: '#2F2F2F',
+  btn: '#FFFFFF',
   red: {
     200: '#cf8080',
     300: '#c86d6e',
