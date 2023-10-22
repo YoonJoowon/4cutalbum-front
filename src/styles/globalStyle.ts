@@ -17,6 +17,8 @@ const GlobalStyles = createGlobalStyle`
     ${({ theme }) => css`
       color: ${theme.text};
     `}
+
+
   }
   `;
 
