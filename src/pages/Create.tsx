@@ -11,6 +11,11 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import First from '../assets/icons/albumCover/First.png';
+import Second from '../assets/icons/albumCover/Second.png';
+import Third from '../assets/icons/albumCover/Third.png';
+import Fourth from '../assets/icons/albumCover/Fourth.png';
+import Fifth from '../assets/icons/albumCover/Fifth.png';
 
 const Create = () => {
   const [title, setTitle] = useState('');
@@ -22,7 +27,9 @@ const Create = () => {
 
   const resetTitle = () => setTitle('');
   const resetSubTitle = () => setSubTitle('');
-  const toHome = () => navigate(ROUTES_PATH.home);
+  const toHome = () => navigate(ROUTES_PATH.main);
+
+  const albumCovers = [First, Second, Third, Fourth, Fifth];
 
   const handleSubmit = async () => {
     let hasError = false;
@@ -73,29 +80,16 @@ const Create = () => {
           <div>
             <S.H2>앨범 커버</S.H2>
             <Swiper modules={[Navigation, Pagination]} spaceBetween={10} slidesPerView={3}>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-              <SwiperSlide>안녕</SwiperSlide>
-            </Swiper>
-            {/* <S.Cover>
-              {[0, 1, 2, 3, 4].map((id) => (
-                <S.CoverDiv
-                  key={id}
-                  $isSelected={selectedCoverId === id}
-                  onClick={() => setSelectedCoverId(id)}
-                  style={{
-                    width: '15.9375rem',
-                    height: '18.8125rem',
-                    background: '#D9D9D9',
-                  }}
-                ></S.CoverDiv>
+              {albumCovers.map((cover, index) => (
+                <SwiperSlide
+                  key={index}
+                  onClick={() => setSelectedCoverId(index)}
+                  style={{ opacity: selectedCoverId === index ? 1 : 0.3 }}
+                >
+                  <img src={cover} />
+                </SwiperSlide>
               ))}
-            </S.Cover>
-             */}
+            </Swiper>
           </div>
           <Input
             value={title}
@@ -175,10 +169,14 @@ const S = {
     padding: 30px 20px 0 20px;
 
     .swiper-slide {
-      width: 200px;
-      height: 200px;
-      background-color: black;
+      width: 276px;
+      height: 332px;
       cursor: pointer;
+
+      @media screen and (max-width: 768px) {
+        width: 138px;
+        height: 166px;
+      }
     }
   `,
   H2: styled.h2`
