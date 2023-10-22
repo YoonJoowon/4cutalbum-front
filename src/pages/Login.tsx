@@ -1,12 +1,12 @@
 import { ROUTES_PATH } from '@Constants/routes';
 import { Link } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
+import loginBackground from '../image/login.png';
 
 const Login = () => {
   return (
     <>
       <LoginLayout>
-        <Logo>4CUS</Logo>
         <InfoText>설명글</InfoText>
         <BackgroundImage></BackgroundImage>
 
@@ -20,21 +20,24 @@ const Login = () => {
 
 export default Login;
 
+export const Wrapper = styled.div`
+  background-color: antiquewhite;
+`;
+
 export const LoginLayout = styled.div`
   width: 375px;
   height: 100vh;
-  border: solid 1px black;
   margin: auto;
   position: relative;
-  background: #f1f1f1;
-`;
+  max-width: 768px;
+  background-color: white;
+  background-image: url(${loginBackground});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 
-export const Logo = styled.div`
-  font-size: 70px;
-  font-weight: 700;
-  margin: auto;
-  margin-top: 87px;
-  text-align: center;
+  @media screen and (max-width: 768px) {
+  }
 `;
 
 export const InfoText = styled.p`
@@ -43,6 +46,7 @@ export const InfoText = styled.p`
   font-size: 20px;
   font-weight: 400;
   margin: auto;
+  padding-top: 200px;
 `;
 
 export const BackgroundImage = styled.div``;
@@ -70,7 +74,7 @@ export const StartBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 200px;
+  bottom: 70px;
   left: 5%;
   color: var(--grayscales-gray-1-c, #1c1c1c);
   font-size: 20px;
