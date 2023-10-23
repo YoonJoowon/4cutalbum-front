@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import sampleImg from '../image.png';
+import sampleImg from './image/sample_image.png';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
-const BASE_URL = 'https://port-0-cutalbum-back-jvpb2alnz8cuvj.sel5.cloudtype.app';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ROUTES_PATH } from '@Constants/routes';
+import { BASE_URL } from '@Constants/base';
 
 export type AlbumPhotos = {
   createdDate: string;
@@ -15,8 +15,12 @@ export type AlbumPhotos = {
 
 const useImageUpload = () => {
   const { albumId } = useParams();
-  const [albumPhotos, setAlbumPhotos] = useState<AlbumPhotos[] | null>(null);
+  const navigate = useNavigate();
+  const initial_slide = 0;
 
+  const [currentSlide, setCurrentSlide] = useState<number>(initial_slide);
+
+  const [albumPhotos, setAlbumPhotos] = useState<AlbumPhotos[] | null>(null);
   const [file, setFile] = useState<FileList | null>(null);
   const [imgURL, setImgURL] = useState<string>(sampleImg);
   const [isImgUpload, setIsImgUpload] = useState<boolean>(false);
@@ -37,6 +41,10 @@ const useImageUpload = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleCurrentSlide = (slideNumber: number) => {
+    setCurrentSlide(slideNumber);
   };
 
   // 파일 선택시 호출되는 함수
@@ -84,7 +92,23 @@ const useImageUpload = () => {
     }
   };
 
-  return { albumPhotos, file, imgURL, selectImg, onSubmit, isImgUpload, stickerPhoto };
+  const handlePhotoClick = (photoId: number | undefined) => {
+    if (!photoId) return;
+    navigate(`${ROUTES_PATH.decoration}/${photoId}?albumId=${albumId}`);
+  };
+
+  return {
+    currentSlide,
+    handleCurrentSlide,
+    albumPhotos,
+    file,
+    imgURL,
+    selectImg,
+    onSubmit,
+    isImgUpload,
+    stickerPhoto,
+    handlePhotoClick,
+  };
 };
 
 export default useImageUpload;
