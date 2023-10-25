@@ -18,19 +18,20 @@
 
 ## 🤼‍♂️ Team
 
-| 닉네임 | 역할 | 1차 스프린트 
-| --- | --- | --- 
-| [키유](https://github.com/hyunjoogo) | 진행자/PL | 일정 조율 및 개발 참여 
-| 왕굴 | 디자인 |  디자인 및 UX/UI 결정
-| [블루](https://github.com/evga7) | BE | API 설계 및 명세서(Swagger) 작성 
-| [코코](https://github.com/y00eunji) | FE | 앨범 생성 페이지 구현
-| [소라](https://github.com/developer-sora) | FE | 사진 꾸미기 기능 구현
-| [별이](https://github.com/siwon99) | FE | 개별 사진 페이지 구현
-| [릭](https://github.com/YoonJoowon) | FE | 랜딩, 앨범 페이지 구현</br>
+| 닉네임 | 역할 | 1차 스프린트 | 2차 스프린트 | 
+| --- | --- | --- | --- |
+| [키유](https://github.com/hyunjoogo) | 진행자/PL | 일정 조율 및 개발 참여 | --- |
+| 왕굴 | 디자인 |  디자인 및 UX/UI 결정 | --- |
+| [블루](https://github.com/evga7) | BE | API 설계 및 명세서(Swagger) 작성 | --- |
+| [코코](https://github.com/y00eunji) | FE | 앨범 생성 페이지 구현 | --- |
+| [소라](https://github.com/developer-sora) | FE | 사진 꾸미기 기능 구현 | --- |
+| [별이](https://github.com/siwon99) | FE | 개별 사진 페이지 구현 | --- |
+| [릭](https://github.com/YoonJoowon) | FE | 랜딩, 앨범 페이지 구현 | --- |</br>
 
 ## 📆 Sprint Schedule
 
-**스프린트 : 2023년 10월 18일 ~ 10월 23일**
+** 1차 스프린트 : 2023년 10월 18일 ~ 10월 23일 **
+** 2차 스프린트 : 2023년 10월 26일 ~ 10월 30일 **
 
 </br>
 
