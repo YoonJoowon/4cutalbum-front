@@ -14,7 +14,7 @@
 
 
 🔗 서비스 링크 : https://4cus.vercel.app/ </br>
-🔗 서비스 링크 : [https://4cus.vercel.app/](https://4cus.netlify.app/)
+🔗 서비스 링크 : [https://4cus.netlify.app/](https://4cus.netlify.app/)
 
 
 ## 🤼‍♂️ Team
